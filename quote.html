@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Quote Generator</title>
+    <style>
+        * { box-sizing: border-box; }
+        body, html {
+            margin: 0; padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?fit=crop&w=1920&q=80') no-repeat center center/cover;
+            display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .overlay {
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(8px);
+            margin: 50px auto; max-width: 700px; width: 90%;
+            padding: 40px 30px; border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            text-align: center;
+        }
+        h1 { font-weight: bold; color: #333; margin-bottom: 20px; font-size: 2rem; }
+        #quote {
+            font-size: 1.2rem; color: #444;
+            margin: 20px 0; min-height: 100px;
+        }
+        button {
+            padding: 10px 20px; font-size: 1rem;
+            background-color: #4caf50; color: white;
+            border: none; border-radius: 20px;
+            cursor: pointer; margin: 8px;
+            transition: background 0.3s, transform 0.2s;
+        }
+        button:hover { background-color: #45a049; transform: scale(1.05); }
+        nav { margin-top: 25px; }
+        nav button { background: #333; color: white; }
+        nav button:hover { background: #555; }
+        footer {
+            text-align: center; color: white;
+            background: rgba(0,0,0,0.6); padding: 15px 10px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="overlay">
+    <h1 id="categoryTitle"><b>Random Quote Generator</b></h1>
+    <p id="quote">Select a category below to get started!</p>
+    <button id="newQuoteBtn" style="display:none;">🔄 New Quote</button>
+
+    <nav>
+        <button onclick="showCategory('success')">🏆 Success</button>
+        <button onclick="showCategory('motivation')">🚀 Motivation</button>
+        <button onclick="showCategory('life')">🌟 Life</button>
+        <button onclick="showCategory('happiness')">😊 Happiness</button>
+        <button onclick="showCategory('wisdom')">📚 Wisdom</button>
+    </nav>
+</div>
+
+<footer>
+    © 2025 Random Quote Generator. Made with ❤️
+</footer>
+
+<script>
+    const quotes = {
+        success: [
+            "🏆 Success usually comes to those who are too busy to be looking for it.",
+            "🎯 Don't be afraid to give up the good to go for the great.",
+            "💡 Success is not in what you have, but who you are.",
+            "🔑 The secret of success is to do the common things uncommonly well.",
+            "🔥 Success is walking from failure to failure with no loss of enthusiasm."
+        ],
+        motivation: [
+            "🚀 Don't watch the clock; do what it does. Keep going.",
+            "💪 Push yourself, because no one else is going to do it for you.",
+            "🌠 Dream big and dare to fail.",
+            "🏋️‍♂️ The harder you work for something, the greater you'll feel when you achieve it.",
+            "🎉 Great things never come from comfort zones."
+        ],
+        life: [
+            "🌟 Your time is limited, don’t waste it living someone else’s life.",
+            "📆 Life is what happens when you're busy making other plans.",
+            "🎲 In the end, we only regret the chances we didn’t take.",
+            "🎈 Life is short, and it is up to you to make it sweet.",
+            "🌍 The purpose of life is not to be happy. It is to be useful."
+        ],
+        happiness: [
+            "😊 Happiness is not something ready-made. It comes from your own actions.",
+            "😄 The purpose of our lives is to be happy.",
+            "😃 For every minute you are angry you lose sixty seconds of happiness.",
+            "😁 Happiness is not by chance, but by choice.",
+            "🥳 The most important thing is to enjoy your life—to be happy—it's all that matters."
+        ],
+        wisdom: [
+            "📚 Knowing yourself is the beginning of all wisdom.",
+            "🤔 The only true wisdom is in knowing you know nothing.",
+            "💭 Turn your wounds into wisdom.",
+            "🎓 Wisdom is not a product of schooling but of the lifelong attempt to acquire it.",
+            "⏳ Patience is the companion of wisdom."
+        ]
+    };
+
+    let currentCategory = '';
+
+    function showCategory(category) {
+        currentCategory = category;
+        document.getElementById('categoryTitle').innerHTML = `<b>${capitalize(category)} Quotes</b>`;
+        showRandomQuote();
+        document.getElementById('newQuoteBtn').style.display = 'inline-block';
+    }
+
+    function showRandomQuote() {
+        if (currentCategory && quotes[currentCategory]) {
+            const randomIndex = Math.floor(Math.random() * quotes[currentCategory].length);
+            document.getElementById('quote').textContent = quotes[currentCategory][randomIndex] + " — Have a Nice Day! 😊";
+        }
+    }
+
+    function capitalize(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    document.getElementById('newQuoteBtn').addEventListener('click', showRandomQuote);
+</script>
+
+</body>
+</html>
